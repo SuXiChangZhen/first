@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#BSUB -J compressible14
+#BSUB -q short
+#BSUB -n 80 
+#BSUB -e %J.err
+#BSUB -o %J.out
+#BSUB -R "span[ptile=40]"
+
+module load intel/2018.4
+module load mpi/openmpi/3.1.2_intel
+
+cd $LS_SUBCWD
+echo "processes will start at:"
+date
+
+mpirun -machinefile $LSB_DJOB_HOSTFILE -np 64 ./main
+
+echo "processes end at:"
+date
